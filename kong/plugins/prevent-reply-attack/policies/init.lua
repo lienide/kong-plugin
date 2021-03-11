@@ -6,8 +6,8 @@ local function is_present(str)
   return str and str ~= "" and str ~= null
 end
 
-local get_local_key = function(conf, identifier, key, ttl)
-  return string.format("prevent-reply-attack:%s:%s:%s", identifier, key, ttl)
+local get_local_key = function(conf, identifier, val, ttl)
+  return string.format("prevent-reply-attack:%s:%s:%s", identifier, val, ttl)
 end
 
 local function get_redis_connection(conf)
@@ -57,8 +57,8 @@ end
 
 return {
   ["redis"] = {
-    verify = function(conf, identifier, key, ttl)
-      local cache_key = get_local_key(conf, identifier, key, ttl)
+    verify = function(conf, identifier, val, ttl)
+      local cache_key = get_local_key(conf, identifier, val, ttl)
       local red, err = get_redis_connection(conf)
 
       if not red then
@@ -73,7 +73,7 @@ return {
       end
 
       if ok == ngx.null then
-        return nil, "someone else has already obtained the lock in Redis"
+        return nil, "request refuse because of repeatable " .. conf.key
       end
 
       local ok, err = red:set_keepalive(10000, 100)

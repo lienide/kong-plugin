@@ -12,7 +12,7 @@ return {
         fields = {
           { key = { type = "string", default = "nonce", } },
           { ttl = { type = "number", default = 60, }, },
-          { limit_by = {
+          { sign = {
             type = "string",
             default = "consumer",
             one_of = { "consumer", "credential", "ip", "service", "header", "path" },
