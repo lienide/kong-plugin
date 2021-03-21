@@ -53,7 +53,7 @@ function PreventReplyAttackHandler:access(conf)
   local ok, err = policies[conf.policy].verify(conf, identifier, val, ttl)
   if err then
     kong.log.warn(err)
-    if conf.continue_on_error == true then
+    if conf.continue_on_error == false then
       return kong.response.error(403, err)
     end
   end
