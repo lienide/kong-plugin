@@ -28,6 +28,7 @@ return {
           { redis_password = { type = "string", len_min = 0, }, },
           { redis_timeout = { type = "number", default = 2000, }, },
           { redis_database = { type = "integer", default = 0, }, },
+          { continue_on_error = { type = "boolean", default = true, }, },
         },
       },
     },

@@ -68,12 +68,12 @@ return {
       local ok, err = red:set(cache_key, 1, 'EX', ttl, 'NX')
 
       if err then
-        kong.log.err("failed to commit setnx in Redis: ", err)
+        kong.log.err("failed to commit set in Redis: ", err)
         return nil, err
       end
 
       if ok == ngx.null then
-        return nil, "request refuse because of repeatable " .. conf.key
+        return nil, "failed to setnx " .. conf.key .. "in Redis"
       end
 
       local ok, err = red:set_keepalive(10000, 100)
