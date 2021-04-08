@@ -11,27 +11,18 @@ PreventReplyAttackHandler.PRIORITY = 1999
 local function get_identifier(conf)
   local identifier
 
-  if conf.sign == "service" then
+  if conf.ident == "service" then
     identifier = (kong.router.get_service() or
       EMPTY).id
 
-  elseif conf.sign == "consumer" then
+  elseif conf.ident == "consumer" then
     identifier = (kong.client.get_consumer() or
       kong.client.get_credential() or
       EMPTY).id
 
-  elseif conf.sign == "credential" then
+  elseif conf.ident == "credential" then
     identifier = (kong.client.get_credential() or
       EMPTY).id
-
-  elseif conf.sign == "header" then
-    identifier = kong.request.get_header(conf.header_name)
-
-  elseif conf.sign == "path" then
-    local req_path = kong.request.get_path()
-    if req_path == conf.path then
-      identifier = req_path
-    end
   end
 
   return identifier or kong.client.get_forwarded_ip()
@@ -53,7 +44,7 @@ function PreventReplyAttackHandler:access(conf)
   local ok, err = policies[conf.policy].verify(conf, identifier, val, ttl)
   if err then
     kong.log.warn(err)
-    if conf.continue_on_error == false then
+    if not conf.fault_tolerant then
       return kong.response.error(403, err)
     end
   end

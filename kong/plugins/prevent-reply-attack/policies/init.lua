@@ -73,7 +73,7 @@ return {
       end
 
       if ok == ngx.null then
-        return nil, "failed to setnx " .. conf.key .. "in Redis"
+        return nil, "failed to setNX " .. conf.key .. "in Redis"
       end
 
       local ok, err = red:set_keepalive(10000, 100)

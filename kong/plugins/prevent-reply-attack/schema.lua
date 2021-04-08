@@ -12,10 +12,10 @@ return {
         fields = {
           { key = { type = "string", default = "nonce", } },
           { ttl = { type = "number", default = 60, }, },
-          { sign = {
+          { ident = {
             type = "string",
             default = "consumer",
-            one_of = { "consumer", "credential", "ip", "service", "header", "path" },
+            one_of = { "consumer", "credential", "ip", "service" },
           }, },
           { policy = {
             type = "string",
@@ -28,7 +28,7 @@ return {
           { redis_password = { type = "string", len_min = 0, }, },
           { redis_timeout = { type = "number", default = 2000, }, },
           { redis_database = { type = "integer", default = 0, }, },
-          { continue_on_error = { type = "boolean", default = true, }, },
+          { fault_tolerant = { type = "boolean", default = true, }, },
         },
       },
     },
