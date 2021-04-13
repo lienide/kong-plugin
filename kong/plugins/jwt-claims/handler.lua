@@ -5,7 +5,7 @@ local jwt_decoder = require "kong.plugins.jwt.jwt_parser"
 local JwtClaimsHandler = BasePlugin:extend()
 
 JwtClaimsHandler.VERSION = "1.0.0"
-JwtClaimsHandler.PRIORITY = 999
+JwtClaimsHandler.PRIORITY = 1005
 
 local function retrieve_token(conf)
   local request_headers = kong.request.get_headers()
