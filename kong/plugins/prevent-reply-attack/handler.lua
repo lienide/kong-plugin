@@ -42,11 +42,12 @@ function PreventReplyAttackHandler:access(conf)
   end
 
   local ok, err = policies[conf.policy].verify(conf, identifier, val, ttl)
-  if err then
-    kong.log.warn(err)
-    if not conf.fault_tolerant then
-      return kong.response.error(403, err)
-    end
+  if err and not conf.fault_tolerant then
+    return kong.response.error(403, err)
+  end
+
+  if ok == ngx.null then
+    return kong.response.error(403, "Forbidden because of repeat " .. conf.key)
   end
 end
 

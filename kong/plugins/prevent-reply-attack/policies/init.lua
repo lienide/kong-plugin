@@ -72,17 +72,13 @@ return {
         return nil, err
       end
 
-      if ok == ngx.null then
-        return nil, "failed to setNX " .. conf.key .. "in Redis"
-      end
-
       local ok, err = red:set_keepalive(10000, 100)
       if not ok then
         kong.log.err("failed to set Redis keepalive: ", err)
         return nil, err
       end
 
-      return res
+      return ok
     end
   }
 }
