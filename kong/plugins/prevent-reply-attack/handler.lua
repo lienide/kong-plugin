@@ -5,7 +5,7 @@ local EMPTY = {}
 
 local PreventReplyAttackHandler = BasePlugin:extend()
 
-PreventReplyAttackHandler.VERSION = "1.0.0"
+PreventReplyAttackHandler.VERSION = "0.1.0"
 PreventReplyAttackHandler.PRIORITY = 1999
 
 local function get_identifier(conf)
