@@ -65,8 +65,7 @@ return {
         return nil, err
       end
 
-      local ok, err = red:set(cache_key, 1, 'EX', ttl, 'NX')
-
+      local res, err = red:set(cache_key, 1, 'EX', ttl, 'NX')
       if err then
         kong.log.err("failed to commit set in Redis: ", err)
         return nil, err
@@ -78,7 +77,7 @@ return {
         return nil, err
       end
 
-      return ok
+      return res
     end
   }
 }

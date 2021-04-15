@@ -41,13 +41,12 @@ function PreventReplyAttackHandler:access(conf)
     return kong.response.exit(400, "Bad request because of '" .. conf.key .. "' not exists")
   end
 
-  local ok, err = policies[conf.policy].verify(conf, identifier, val, ttl)
+  local res, err = policies[conf.policy].verify(conf, identifier, val, ttl)
+  if res == ngx.null then
+    return kong.response.error(403, "Forbidden because of repeat " .. conf.key)
+  end
   if err and not conf.fault_tolerant then
     return kong.response.error(403, err)
-  end
-
-  if ok == ngx.null then
-    return kong.response.error(403, "Forbidden because of repeat " .. conf.key)
   end
 end
 
