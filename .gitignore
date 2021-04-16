@@ -2,4 +2,7 @@
 servroot
 
 # packed distribution format for LuaRocks
-*.rock
+#*.rock
+
+# idea
+.idea
