@@ -48,7 +48,7 @@ Assuming your plugin rockspec is called kong-plugin-my-plugin-0.1.0-1.rockspec,
 the above would become;
 
 ```bash
-$ luarocks pack kong-plugin-my-plugin 0.1.0-1
+$ luarocks pack kong-plugin-myplugin 0.1.0-1
 ```
 
 The LuaRocks pack command has now created a .rock file (this is simply a zip file
